@@ -1,6 +1,7 @@
 package arreglo;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -77,7 +78,6 @@ public class AtencionArray {
 			}
 			pw.close();
 			
-			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erroe al registar atencion");
 		}
@@ -105,14 +105,21 @@ public class AtencionArray {
 				totalPagar = Double.parseDouble(item[4].trim());
 				estado = Integer.parseInt(item[5].trim());
 				addAtencion(new Atencion(codAtencion,codPaciente, fechaAtencion, horaAtencion, totalPagar, estado));
-				
-				br.close();
 			}
 			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error al cargar atenciones " + e);
+			br.close();
 			
+			
+		} 
+		catch (FileNotFoundException fl) {
+			JOptionPane.showMessageDialog(null, "No se encontró registro del archivo, se procederá a crear nuevo registro");
 		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Error al cargar atenciones " + e);
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+		}
+		
 	}
 	
 	public int generateCodAtencion() {
