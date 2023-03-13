@@ -2,6 +2,7 @@ package clase;
 
 public class Atencion {
 
+	
 	private int codigoAtencion;
 	private int codigoPaciente;
 	private String fechaAtencion;
@@ -83,7 +84,12 @@ public class Atencion {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return "Atencion [codigoAtencion=" + codigoAtencion + ", codigoPaciente=" + codigoPaciente + ", fechaAtencion="
+				+ fechaAtencion + ", horaAtencion=" + horaAtencion + ", totalPagar=" + totalPagar + ", estado=" + estado
+				+ "]";
+	}
 	
 	
 }

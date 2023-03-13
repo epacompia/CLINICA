@@ -14,6 +14,10 @@ import clase.Receta;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -97,34 +101,104 @@ public class AtencionGUI extends JFrame {
 		btnNewButton_1.setBounds(463, 47, 89, 23);
 		contentPane.add(btnNewButton_1);
 		table.getColumnModel().getColumn(2).setPreferredWidth(85);
+		
+	
+		loadData();
+		
 	}
+	
+	
 	
 	AtencionArray atArray = new AtencionArray();
 	
 	RecetaArray  rArray = new RecetaArray();
 	private JTable table;
 	private JTable table_1;
-
+	private DefaultTableModel modelo;
+	
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		
 		
-		Paciente pax = new Paciente(100003, "Paciente", "Pax", "934542779", "11111111");
 		
-		Atencion at = new Atencion(200005, pax.getCodigoPaciente(), "04/03/2023", "19:00", 100.00, 1);
+		/*
+		 * DateTimeFormatter formatDate, formatTime;
+		 * 
+		 * formatDate = DateTimeFormatter.ofPattern("dd/MM/yyyy"); formatTime =
+		 * DateTimeFormatter.ofPattern("HH:mm:ss");
+		 * 
+		 * LocalDateTime dateNow = LocalDateTime.now();
+		 * 
+		 * String date = formatDate.format(dateNow); String time =
+		 * formatTime.format(dateNow);
+		 * 
+		 * 
+		 * Paciente pax = new Paciente(100005, "Paciente", "Pax", "934542779",
+		 * "11111111");
+		 * 
+		 * Atencion at = new Atencion(200009, pax.getCodigoPaciente(), date, time,
+		 * 100.00, 1);
+		 * 
+		 * atArray.addAtencion(at);
+		 * 
+		 * 
+		 * Receta receta1 = new Receta(at.getCodigoAtencion(), 90004, 2, 25.00); Receta
+		 * receta2 = new Receta(at.getCodigoAtencion(), 90005, 1, 5.00); Receta receta3
+		 * = new Receta(at.getCodigoAtencion(), 90006, 5, 1.40);
+		 * 
+		 * 
+		 * rArray.addReceta(receta1); rArray.addReceta(receta2);
+		 * rArray.addReceta(receta3);
+		 */
+
+		//System.out.println(formatDate.format(date));
+		//System.out.println(formatTime.format(date));
 		
-		atArray.addAtencion(at);
-		
-		
-		Receta receta1 = new Receta(at.getCodigoAtencion(), 90004, 2, 25.00);
-		Receta receta2 = new Receta(at.getCodigoAtencion(), 90005, 1, 5.00);
-		Receta receta3 = new Receta(at.getCodigoAtencion(), 90006, 5, 1.40);
-		
-		
-		rArray.addReceta(receta1);
-		rArray.addReceta(receta2);
-		rArray.addReceta(receta3);
-		
-		
-				
+		  //deleteAtencion(200006);
+		  
+		 
+		 //System.out.println(atArray.searchAtencion(200008).toString());
+		 //System.out.println(rArray.getReceta(0).toString());
 	}
+	
+	
+	public void deleteAtencion(int codAtencion) {
+		  
+		System.out.println("size "+atArray.sizeArray());
+		
+		  Atencion paxAt = atArray.searchAtencion(codAtencion);
+		  
+		  atArray.deleteAtencion(paxAt);
+		  
+		  //deleteReceta(codAtencion);
+			
+	}
+	
+	private void deleteReceta(int codAtencion) {
+		
+		List<Receta> rec = rArray.searchReceta(codAtencion);
+		for (Receta receta : rec) {
+			  rArray.deleteReceta(receta);
+		}
+	}
+	
+	private void loadData() {
+		
+		Atencion obj;
+		Paciente px;
+		
+		modelo = (DefaultTableModel) table.getModel();
+		
+		for (int i = 0; i < atArray.sizeArray(); i++) {
+			
+			obj = atArray.getAtencion(i);
+			
+			Object[] row = {obj.getCodigoAtencion(), obj.getCodigoPaciente() , "PACIENTE", "DNI", obj.getTotalPagar(), obj.getEstado()};
+			modelo.addRow(row);
+			
+		}
+		table.setModel(modelo);
+		
+	}
+		  
+		  
 }

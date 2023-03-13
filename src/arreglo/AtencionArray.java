@@ -49,10 +49,9 @@ public class AtencionArray {
 	
 	public Atencion searchAtencion(int codigo) {
 		
-		
 		for(int i=0; i< sizeArray(); i++) {
 			if(getAtencion(i).getCodigoAtencion() == codigo) {
-				getAtencion(i);
+				return getAtencion(i);
 			}
 		}
 		
@@ -79,7 +78,7 @@ public class AtencionArray {
 			pw.close();
 			
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erroe al registar atencion");
+			JOptionPane.showMessageDialog(null, "Error al registar atencion");
 		}
 	}
 	
